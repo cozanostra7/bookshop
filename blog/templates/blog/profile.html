@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock title %}
+
+{% block main %}
+
+<div class="container">
+    <div class="card mt-4 p-4">
+        <div class="d-flex justify-content-between">
+            <div class="image col-4">
+                <img src="{{ profile.get_profile_image }}" alt="">
+
+                <a href="{% url 'edit' profile.pk %}" class="btn btn-primary">Edit profile</a>
+
+
+
+            </div>
+
+            <div class="info col-8">
+                <h1>{{ profile.user.username }}</h1>
+                <h3>{{ profile.user.first_name }} {{ profile.user.last_name }}</h3>
+
+                {% if profile.bio %}
+                <p>{{ profile.bio }}</p>
+                {% else %}
+                <p>No information </p>
+                {% endif %}
+
+                 {% if profile.birth_date %}
+                <time>{{ profile.birth_date }}</time>
+                {% else %}
+                <p>Date of birth not indicated </p>
+                {% endif %}
+
+
+
+            </div>
+        </div>
+    </div>
+
+    <h3>My favourites</h3>
+
+    {% for article in articles %}
+        {% include 'blog/components/blog/_article_card.html' %}
+    {% endfor %}
+</div>
+{% endblock main %}
+

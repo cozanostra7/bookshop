@@ -1,0 +1,30 @@
+{% load blog_tags %}
+<div class="card mt-4 mb-4">
+    <div class="d-flex justify-content-start">
+      <div class="col-9 p-4">
+          <a href="{% url 'article' article.pk %}" class="text-dark">
+        <h3>{{article.title}}</h3>
+          </a>
+        <p> {{article.description|truncatewords:50 }}</p>
+
+         <p>{{article.category}}</p>
+        <span class="small">{{article.created_at}}</span>
+        <span class="small">Views {{article.views}}</span>
+
+        {% if request.user.is_authenticated %}
+            {% get_favourite article request.user as fav %}
+
+            {% if fav %}
+              <a class="text-danger" href="{% url 'fav' article.pk 'delete' %}"><i class="bi bi-heart-fill"></i></a>
+              {% else %}
+              <a class="text-danger" href="{% url 'fav' article.pk 'add' %}"><i class="bi bi-heart"></i></a>
+
+              {% endif %}
+          {% endif %}
+
+
+      </div>
+
+      </div>
+
+    </div>
